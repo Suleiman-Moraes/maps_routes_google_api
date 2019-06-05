@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +15,10 @@ export class AppComponent {
 
   public origin: any = { lat: -16.68470614, lng: -49.25463259 };
   public destination: any = { lat: -16.67127375644847, lng: -49.23877828235197 };
+
+  constructor(
+    private http: HttpClient
+  ){}
 
   public renderOptions = {
     suppressMarkers: true,
@@ -31,4 +38,20 @@ export class AppComponent {
       //   `
     },
   };
+
+  private buscarPedidoEmAndamento(userId: any): Observable<any>{
+    return this.http.get(`localhost:8080/pedido/user/${userId}/andamento`).pipe(
+      map(this.fromJsonResponseApi.bind(this)),
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError(error: any): Observable<any> {
+    console.log("ERRO NA REQUISIÇÃO => ", error);
+    return throwError(error);
+  }
+
+  private fromJsonResponseApi(jsonData: any): any{
+    return Object.assign(any, jsonData);
+  }
 }

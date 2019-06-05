@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction'; 
 
-import { environment } from '../environments/environment';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -17,9 +17,10 @@ import { environment } from '../environments/environment';
     BrowserModule,
     HttpModule,
     AgmCoreModule.forRoot({
-      apiKey: environment.googleAPIKey,
+      apiKey: 'AIzaSyD5g_QO7b1pBfgl9OtX6vchzZwX1Vmxo2Y',
     }),
     AgmDirectionModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
